@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>个人名片网站</title>
+		<script src="jquery/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css"/>
+		<script type="text/javascript" src="g2/g2.js" ></script>
+		<script src="https://gw.alipayobjects.com/os/antv/assets/data-set/0.8.7/data-set.min.js"></script>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;;
+			}
+			
+			#box{
+				width: 100%;
+				background: url(img/3.jpg) no-repeat;
+				background-size:100% 100% ;
+				overflow: hidden;
+			
+			}
+			.synopsis{
+				width: 800px;height: 1000px;
+				margin-left: -400px;margin-top: -500px;font-size: 50px;
+			}
+			
+			.synopsis,.intension,.experience,.projectExperience,.educationExperience{
+				position: absolute;top: 50%;
+				left:50%;
+				display: none;
+				color: #fff;
+			}
+			.intension{
+				width: 900px;height: 1000px;
+				margin-left: -450px;margin-top: -500px;
+				font-size: 30px;display: none;
+				
+			}
+			.experience{
+				width: 900px;height: 1200px;
+				margin-left: -450px;margin-top: -600px;
+				font-size: 30px;display: none;
+				display: block;
+				overflow: hidden;
+				
+				
+			}
+			
+			.experience > div{
+				position: absolute;
+				left: 0;top:10000px;
+				transition:all 1s;
+			}
+			.projectExperience{
+				width: 900px;height: 1500px;
+				margin-left: -450px;margin-top: -750px;
+				font-size: 30px;display: none;
+				display: block;
+				overflow-y:scroll;
+				
+			}
+			.projectExperience > div{
+				position: absolute;
+				left: 0;top:-10000px;
+				transition:all 1s;
+			}
+			.educationExperience{
+				width: 900px;height: 1500px;
+				margin-left: -450px;margin-top: -750px;
+				font-size: 30px;display: none;overflow: hidden;
+				display: block;
+			}
+			.educationExperience > div{
+				position: absolute;
+				left: 10000px;top:0px;
+				transition:all 1s;
+			}
+			.educationExperience  .line5 > p > .tiao{
+				width: 82%;vertical-align: text-top;
+				background-color: #DDDDDD;border-radius: 30px;
+				height: 37px;
+			}
+			.educationExperience  .line5 > p > .tiao > span{
+				width: 80%;display: inline-block;
+				background: #ff9f20;text-align: right;
+				border-radius: 30px;height: 37px;
+				padding-right:10px ;
+			}
+			.synopsis .xian{border-bottom: 1px solid #000;display: inline-block;width: 400px;text-align: center;}
+			.synopsis .line1 p span:nth-child(1){
+				display: inline-block;width: 250px;
+				text-align: right;
+			}
+			.synopsis .line1{
+				position:absolute;
+				left: -1000px;top:0;
+				transition: all 0.5s;
+			}
+			ul{
+				width: 770px;
+				position: absolute;
+				left: 50%;margin-left: -385px;
+    			z-index: 100;
+				
+    			
+    			}
+			ul>li{
+    			
+				animation: color 2s infinite;
+				transition: all 2s;
+				display: inline-block;width: 150px;height: 70px;
+				border-radius: 10px;text-align: center;
+				line-height: 70px;border:1px solid red;
+				font-size: 30px;background-color: #ff6000;color: #fff;
+			}
+			@keyframes color{
+				0%{border-top-color:red;border-right-color:green;border-bottom-color:blue;border-left-color:yellow;}
+				25%{border-top-color:yellow;border-right-color:red;border-bottom-color:green;border-left-color:blue;}
+				50%{border-top-color:blue;border-right-color:yellow;border-bottom-color:red;border-left-color:green;}
+				75%{border-top-color:green;border-right-color:blue;border-bottom-color:yellow;border-left-color:red;}
+				100%{border-top-color:red;border-right-color:green;border-bottom-color:blue;border-left-color:yellow;}
+			}
+			#info{}
+			.intension .line2{
+				opacity: 0;
+				transition: all 1s;
+			}
+			.intension .line2 > div > p:nth-child(1),
+			.experience .line3 > p:nth-child(1),
+			.projectExperience .line4 > p:nth-child(1),
+			.educationExperience .line5 > p:nth-child(1){
+				display: inline-block;
+				width: 55%;
+			}
+			.intension .line2 > div > p:nth-child(2),
+			.experience .line3  > p:nth-child(2),
+			.projectExperience .line4 > p:nth-child(2),
+			.educationExperience .line5 > p:nth-child(2){
+				display: inline-block;
+				width: 44%;
+			}
+			.intension .line2 > div > p > span,
+			.experience .line3  > p > span,
+			.projectExperience .line4  > p > span,
+			.educationExperience .line5 > p > span{
+				display: inline-block;
+				width: 40%;text-align: right;
+			}
+			.intension .line2 p > strong,
+			.experience .line3  > p > strong,
+			.projectExperience .line4  > p > strong,
+			.educationExperience .line5 > p > strong{
+				display: inline-block;
+				width: 58%;
+			}
+			.show{
+				display: block;
+			}
+			.hide{
+				display: none;
+			}
+			.op{
+				opacity: 1;
+			}
+			.clearfloat{clear:both}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li id="info">个人信息</li>
+				<li id="job">求职意向</li>
+				<li id="work">工作经验</li>
+				<li id="project">项目经验</li>
+				<li id="education">教育经验</li>
+			</ul>
+			<!--个人信息-->
+			<div class="synopsis">
+				<div class="line1">
+					<p>
+						<span>姓名：</span><span class="xian">单亚奇</span>
+					</p>
+				</div>
+				<div class="line1">
+					<p>
+						<span>姓别：</span><span class="xian">男</span>
+					</p>
+				</div>
+				<div class="line1">
+					<p>
+						<span>出生日期：</span><span class="xian">1995.**.16</span>
+					</p>
+				</div>
+				<div class="line1">
+					<p>
+						<span>手机：</span><span class="xian">1752****414</span>
+					</p>
+				</div>
+				<div class="line1">
+					<p>
+						<span>邮箱：</span><span class="xian">1553859055@qq.com</span>
+					</p>
+				</div>
+				<div class="line1">
+					<p>
+						<span>求职状态：</span><span class="xian">观望机会</span>
+					</p>
+				</div>
+				<div class="line1">
+					<p>
+						<span>期望工资：</span><span class="xian">8000</span>
+					</p>
+				</div>
+				<div class="line1">
+					<p>
+						<span>居住地：</span><span class="xian">上海-**</span>
+					</p>
+				</div>				
+			</div>
+			<!--求职意向-->
+			<div class="intension" >
+				<div class="line2">
+					<div>
+						<p >
+							<span>期望薪资：</span><strong>8-10k/月</strong>
+						</p>
+						<p>
+							<span>工作地点：</span><strong>上海</strong>
+						</p>
+					</div>
+				</div>
+				<div class="line2">
+					<div>
+						<p >
+							<span>职能/职位：</span><strong>WEB前端开发工程师</strong>
+						</p>
+						<p>
+							<span>行业：</span><strong>计算机/IT</strong>
+						</p>
+					</div>
+				</div>
+				<div class="line2">	
+					<div>
+						<p style="width: 100%;">
+							<span style="width: 22%;">个人标签：</span>
+							<strong style="width: 77%;">Web前端  Web前端开发工程师  Web前端设计师</strong>
+						</p>
+					</div>
+				</div>
+				<div class="line2">
+					<div>
+						<p style="width: 100%;">
+							<span style="width: 22%;">自我评价：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								1. 本人性格开朗、有活力，待人热情、真诚；<br>
+								2. 工作认真负责，积极主动，能吃苦耐劳，<br>
+								3. 具有很强的自学能力，上进心。<br>
+								4.喜欢专研技术。<br>
+							</strong>
+						</p>
+					</div>
+				</div>
+				<div class="line2">
+					<div>
+						<p >
+							<span>到岗时间：</span><strong>一周</strong>
+						</p>
+						<p>
+							<span>工作类型：</span><strong>全职</strong>
+						</p>
+					</div>
+				</div>
+				
+				
+			</div>
+			<!--工作经验-->
+			<div class='experience'>
+				<div>
+				<div class="line3" style="margin: 30px;">
+					<h2 style="font-size: 40px;color: #ff6000;">工作经验一：</h2>
+				</div>
+				<div class="line3">
+					<p>
+						<span>工作时间：</span><strong>2017/8-至今</strong>
+					</p>
+					<p>
+						<span>公司名称：</span><strong>南京***汽车</strong>
+					</p>
+				</div>
+				<div class="line3">
+					<p>
+						<span>所在部门：</span><strong>技术部</strong>
+					</p>
+					<p>
+						<span>部门规模：</span><strong>50-100</strong>
+					</p>
+				</div>
+				<div class="line3">
+					
+						<p style="width: 100%;">
+							<span style="width: 22%;">自我评价：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								1. 根据ui的psd稿，做出1:1相对应页面，<br>
+								2. 根据文档要求做相对的特效布局，和样式布局，<br>
+								3. 配合后台的数据,使用Ajax把数据传到页面，<br>
+								4. 项目上线以后根据升级需求，对产品进行日常的维护和升级<br>
+							</strong>
+						</p>
+					
+				</div>
+				<div class="line3" style="margin: 30px;">
+					<h2 style="font-size: 40px;color: #ff6000;">工作经验二：</h2>
+				</div>
+				<div class="line3">
+					<p>
+						<span>工作时间：</span><strong>2017/8-至今</strong>
+					</p>
+					<p>
+						<span>公司名称：</span><strong>**电商</strong>
+					</p>
+				</div>
+				<div class="line3">
+					<p>
+						<span>所在部门：</span><strong>技术部</strong>
+					</p>
+					<p>
+						<span>部门规模：</span><strong>50-100</strong>
+					</p>
+				</div>
+				<div class="line3">
+					
+						<p style="width: 100%;">
+							<span style="width: 22%;">工作描述：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								1. 根据ui的psd稿，做出1:1相对应页面，<br>
+								2. 根据文档要求做相对的特效布局，和样式布局，<br>
+								3. 配合后台的数据,使用Ajax把数据传到页面，<br>
+								4. 项目上线以后根据升级需求，对产品进行日常的维护和升级<br>
+							</strong>
+						</p>
+					
+				</div>
+				</div>
+			</div>
+			<!--项目经验-->
+			<div class="projectExperience">
+				<div>
+					<div class="line4" style="margin: 30px;">
+						<h2 style="font-size: 40px;color: #ff6000;">项目经验一：</h2>
+					</div>
+					<div class="line4">
+						<p>
+							<span>开发时间：</span><strong>6个月</strong>
+						</p>
+						<p>
+							<span>项目名称：</span><strong>南京***汽车</strong>
+						</p>
+					</div>
+					<div class="line4">
+						<p>
+							<span>所属公司：</span><strong>南京***</strong>
+						</p>
+					</div>
+					<div class="line4">
+						
+						<p style="width: 100%;">
+							<span style="width: 22%;">项目描述：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								根据公司要求，做出电商公司需要电商管理系统，主要功能是动态工作流和动态工单，
+								让系统可以应对公司设计部和策划部和渠道部会出现的突发情况，可以动态改变工单。
+								公司领导可以更加方便的管理公司员工，能够清晰明了的看到每个员工的工作状态，
+								工作内容，各个部门所下的工单，工单的收益，工单审核。员工考勤，业绩曲线图
+								，商品分析图，网站消息推送到每个账号。网渠电商管理系统是有针对性对电商公司搭建的系统。
+							</strong>
+						</p>
+					</div>
+					<div class="line4">
+						<p style="width: 100%;">
+							<span style="width: 22%;">责任描述：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								1 . 根据部门主管要求，配合后台程序员，对公司pc端系统用户界面进行响应式的搭建，
+								使用html5+css3+bootstrap框架+atlant框架对公司电商系统进行排版布局
+								，使用jQuery库对页面特效进行设置，让公司使用人员能一目了然的了解系统。<br>
+								2 .搭建手机端响应式网站，吧pc端的数据页展示，与详情页，工单，会议召开，用户信息，提醒功能，
+								把pc端的主要功能放到微信端去，主要使用bootstrap框架为主，atlant框架为辅，
+								对微信端手机网站进行系统的升级
+							</strong>
+						</p>
+					</div>
+					<div class="line4">
+						<p style="width: 100%;">
+							<span style="width: 22%;">项目地址：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								http://test.iwangqu.com;
+							</strong>
+						</p>
+					</div>
+					<div class="line4" style="margin: 30px;">
+						<h2 style="font-size: 40px;color: #ff6000;">项目经验二：</h2>
+					</div>
+					<div class="line4">
+						<p>
+							<span>开发时间：</span><strong>6个月</strong>
+						</p>
+						<p>
+							<span>项目名称：</span><strong>南京***汽车</strong>
+						</p>
+					</div>
+					<div class="line4">
+						<p>
+							<span>所属公司：</span><strong>南京***</strong>
+						</p>
+					</div>
+					<div class="line4">
+						
+						<p style="width: 100%;">
+							<span style="width: 22%;">项目描述：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								根据公司要求，做出电商公司需要电商管理系统，主要功能是动态工作流和动态工单，
+								让系统可以应对公司设计部和策划部和渠道部会出现的突发情况，可以动态改变工单。
+								公司领导可以更加方便的管理公司员工，能够清晰明了的看到每个员工的工作状态，
+								工作内容，各个部门所下的工单，工单的收益，工单审核。员工考勤，业绩曲线图
+								，商品分析图，网站消息推送到每个账号。网渠电商管理系统是有针对性对电商公司搭建的系统。
+							</strong>
+						</p>
+					</div>
+					<div class="line4">
+						<p style="width: 100%;">
+							<span style="width: 22%;">责任描述：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								1 . 根据部门主管要求，配合后台程序员，对公司pc端系统用户界面进行响应式的搭建，
+								使用html5+css3+bootstrap框架+atlant框架对公司电商系统进行排版布局
+								，使用jQuery库对页面特效进行设置，让公司使用人员能一目了然的了解系统。<br>
+								2 .搭建手机端响应式网站，吧pc端的数据页展示，与详情页，工单，会议召开，用户信息，提醒功能，
+								把pc端的主要功能放到微信端去，主要使用bootstrap框架为主，atlant框架为辅，
+								对微信端手机网站进行系统的升级
+							</strong>
+						</p>
+					</div>
+					<div class="line4">
+						<p style="width: 100%;">
+							<span style="width: 22%;">项目地址：</span>
+							<strong style="width: 77%;vertical-align: text-top;">
+								http://test.iwangqu.com;
+							</strong>
+						</p>
+					</div>					
+				</div>
+			</div>
+			<!--教育经验-->
+			<div class="educationExperience">
+				<div>
+					<div class="line4" style="margin: 30px;">
+						<h2 style="font-size: 40px;color: #ff6000;">在校情况：</h2>
+					</div>
+					<div class="line5">
+						<p style="width: 40%;">
+							<span style="width: 42%;">毕业时间：</span><strong>2017.09</strong>
+						</p>
+						<p style="width: 59%;">
+							<span>学校名称：</span><strong >郑州****学院</strong>
+						</p>
+					</div>
+					
+					<div class="line5">
+						<p style="width: 40%;">
+							<span style="width: 42%;">学历：</span><strong>大专</strong>
+						</p>
+						<p style="width: 59%;">
+							<span>专业：</span><strong >计算机网络基础</strong>
+						</p>
+					</div>
+					<div class="line5">
+							<p style="width: 100%;">
+								<span style="width: 17%;">专业描述：</span><strong style="width: 82%;vertical-align: text-top;">大学课程学习过C语言，c++，java，和网站建设！数据库！ps！</strong>
+							</p>
+					</div>
+					<div class="line4" style="margin: 30px;">
+						<h2 style="font-size: 40px;color: #ff6000;">专业技能：</h2>
+					</div>
+					<div class="line5">
+							<p style="width: 100%;">
+								<span class='zi' style="width: 17%;">JavaScript：</span>
+								<strong class='tiao' >
+									<span>良好</span>
+								</strong>
+							</p>
+					</div>
+					<div class="line5">
+						<p style="width: 100%;">
+							<span class='zi' style="width: 17%;">html/H5：</span>
+							<strong class='tiao' >
+								<span style="width: 90%;">熟练</span>
+							</strong>
+						</p>
+					</div>
+					<div class="line5">
+						<p style="width: 100%;">
+							<span class='zi' style="width: 17%;">jquery：</span>
+							<strong class='tiao' >
+								<span style="width: 90%;">熟练</span>
+							</strong>
+						</p>
+					</div>
+					<div class="line5">
+						<p style="width: 100%;">
+							<span class='zi' style="width: 17%;">css：</span>
+							<strong class='tiao' >
+								<span style="width: 90%;">熟练</span>
+							</strong>
+						</p>
+					</div>
+					<div class="line5">
+						<p style="width: 100%;">
+							<span class='zi' style="width: 17%;">bootstrap：</span>
+							<strong class='tiao' >
+								<span style="width: 80%;">良好</span>
+							</strong>
+						</p>
+					</div>
+					<div class="line5">
+						<p style="width: 100%;">
+							<span class='zi' style="width: 17%;">Vue.js：</span>
+							<strong class='tiao' >
+								<span style="width: 70%;">良好</span>
+							</strong>
+						</p>
+					</div>
+					<div class="line5">
+						<p style="width: 100%;">
+							<span class='zi' style="width: 17%;">Ajax：</span>
+							<strong class='tiao' >
+								<span style="width: 75%;">良好</span>
+							</strong>
+						</p>
+					</div>
+					<div class="line5">
+						<p style="width: 100%;">
+							<span class='zi' style="width: 17%;">css3：</span>
+							<strong class='tiao' >
+								<span style="width: 85%;">良好</span>
+							</strong>
+						</p>
+					</div>
+					
+				</div>
+				<div class="clearfloat"></div>
+				<div class="line5" style="width: 100%;top: 65%;">
+						<div id="c1"></div>
+						<script type="text/javascript">
+							const data1= [
+							  { genre: 'Sports', sold: 275 },
+							  { genre: 'Strategy', sold: 115 },
+							  { genre: 'Action', sold: 120 },
+							  { genre: 'Shooter', sold: 350 },
+							  { genre: 'Other', sold: 150 }
+							]; // G2 对数据源格式的要求，仅仅是 JSON 数组，数组的每个元素是一个标准 JSON 对象。
+							// Step 1: 创建 Chart 对象
+							const chart1 = new G2.Chart({
+							  container: 'c1', // 指定图表容器 ID
+							  forceFit: 900, // 指定图表宽度
+							  height : 500 // 指定图表高度
+							});
+							// Step 2: 载入数据源
+							chart1.source(data1);
+							// Step 3：创建图形语法，绘制柱状图，由 genre 和 sold 两个属性决定图形位置，genre 映射至 x 轴，sold 映射至 y 轴
+							chart1.interval().position('genre*sold').color('genre')
+							// Step 4: 渲染图表
+							chart1.render();
+						</script>
+					</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	//获取手机屏幕高度
+	var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	$("#box").css("height",h+"px")
+	
+	//点击个人信息
+	$("#info").click(function(){
+		jobHide()
+		workJS()
+		educationJs ()
+		projectJs ()
+		$(".synopsis ").addClass('show').siblings().removeClass('show')
+			
+	/*	这主传进去要是因为setTimeout的执行时异步执行的，而for循环的执行却非常的快，
+		所以，在1s后执行定时器函数时， i  已经 循环到了最大值8，其他的i值已经被销毁，
+		此时再执行定时器，则是把 i=8传进去了，所以造成了这样的结果*/
+        kaishi()
+		
+	})
+	//点击求职意向
+	$(".intension").fadeOut('slow')
+	$("#job").click(function(){
+		jieshu1();
+		jobShow()
+		workJS()
+		educationJs ()
+		projectJs ()
+		$(".intension").addClass('show').siblings().removeClass('show')
+	
+	})
+	//工作经验
+	$("#work").click(function(){
+		jobHide()
+		jieshu1();
+		workKS()
+		educationJs ()
+		projectJs ()
+	})
+	//项目经验
+	$("#project").click(function(){
+		jobHide()
+		jieshu1();
+		workJS()
+		educationJs ()
+		projectKs ()
+	})
+	//教育经验
+	$("#education").click(function(){
+		jobHide()
+		jieshu1();
+		workJS()
+		projectJs ()
+		educationKs ()
+	})
+	
+	
+	
+	
+	
+	
+	
+	function kaishi(){
+			 			for	(var i = 0; i < $(".line1").length ; i++ ) {
+				 		/*将延时器中的函数用一个自执行函数包起来，
+				 		把每个循环中的 i 在被回收之前直接传入到自执行函数中，这样就可以避免被回收*/
+						(function(a){	//自执行函数，获取i					
+							setTimeout(function(){
+								 $(".line1").eq(a).css({"left":"60px","top":a*92+"px"});
+								 //操纵变量a，和i无关 此时输出为 0，1，2，3，4，5 ，6，7且在1s延迟后输出
+							},a*300)						
+						})(i)
+						}//将 i 的值传进来 ，这样就可以每个一秒输出一个值
+			 		}	
+/*	function jieshu(){
+				for	(var i = 0; i < $(".line1").length ; i++ ) {
+					(function(a){						
+						var ss=setTimeout(function(){
+							 $(".line1").eq(a).css({"left":"-1000px","top":a*92+"px"});							 
+						},a*time)						
+					})(i)									
+				}
+			}*/
+	function jieshu1(){
+				for	(var i = 0; i < $(".line1").length ; i++ ) {
+							 $(".line1").eq(i).css({"left":"-1000px","top":"92px"});							 							
+					}								
+				
+			}
+	function jobShow(){
+			setTimeout(function(){
+				$(".intension .line2").css("opacity",1)
+			},500)
+		}
+	function jobHide(){
+			setTimeout(function(){
+				$(".intension .line2").css("opacity",0)
+			},500)
+		}
+	function workKS(){
+			$(".experience > div").css({
+			"top":0
+			})
+		}
+	function workJS(){
+			$(".experience > div").css({
+			"top":"10000px"
+			})
+		}
+	function projectKs () {
+		$(".projectExperience > div").css({
+			"top":0
+			})
+	}
+	function projectJs () {
+		$(".projectExperience > div").css({
+			"top":"-10000px"
+			})
+	}
+	function educationKs () {
+		$(".educationExperience > div").css({
+			"left":0
+			})
+	}
+	function educationJs () {
+		$(".educationExperience > div").css({
+			"left":"10000px"
+			})
+	}
+</script>
